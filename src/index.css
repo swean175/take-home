@@ -6,6 +6,19 @@
   animation: rotator 1.4s linear infinite;
 }
 
+.test:hover{
+  animation: downicon 0.4s ease-in-out;
+}
+
+@keyframes downicon {
+0% {
+  transform: scaleY(1.5);
+}
+100% {
+  transform: scaleY(1);
+}
+}
+
 @-webkit-keyframes rotator {
   0% {
     transform: rotate(0deg);

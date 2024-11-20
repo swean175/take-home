@@ -1,5 +1,8 @@
+import {useState, useEffect} from "react";
 import { useQuery } from "@tanstack/react-query";
 import mockJson from "./mock.json";
+import { useStore } from "../store";
+
 
 export type ListItem = {
   id: number;
@@ -8,23 +11,60 @@ export type ListItem = {
   isVisible: boolean;
 };
 
-export type DeletedListItem = Omit<ListItem, "description">;
 
+
+// export type DeletedListItem = Omit<ListItem, "decription">;
+
+// useDeletedListData returns deleted cards
+
+export const useDeletedListData = () => {
+  const deletedCards = useStore((state) => state.deletedCards);
+  const [data, setData] = useState(deletedCards);
+
+  useEffect(() => {
+    setData(deletedCards);
+  },[deletedCards]);
+
+  const query = useQuery({
+    queryKey: ["deletedList"],
+    queryFn: async () => {
+      await sleep(100);
+
+      const mockData = mockJson as Omit<ListItem, "isDeleted">[];
+      return mockData.map((item) => {
+        return { ...item, isDeleted: data.includes(item.id)  ? true : false };
+      });
+    },
+  });
+
+  return query;
+};
+
+
+// useGetListData does not return deleted cards
 export const useGetListData = () => {
+
+  const deletedCards = useStore((state) => state.deletedCards);  
   const query = useQuery({
     queryKey: ["list"],
     queryFn: async () => {
       await sleep(1000);
 
       if (getRandom() > 85) {
-        console.error("An unexpected error occurred!");
+        console.error("An unexpected error occurred! The random number was bigger than 85");
         throw new Error("👀");
       }
 
       const mockData = mockJson as Omit<ListItem, "isVisible">[];
 
       return shuffle(mockData).map((item) => {
-        return { ...item, isVisible: getRandom() > 50 ? true : false };
+        let show
+        if (deletedCards.includes(item.id)) {
+          show = false
+        } else {
+          show = true
+        }
+        return { ...item, isVisible: getRandom() > 50 && show ? true : false };
       });
     },
   });
