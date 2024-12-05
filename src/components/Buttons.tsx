@@ -78,7 +78,7 @@ export function ToggleButton({ children, className } : ToggleButtonProps){
   };
   return (
     <div>
-      <label className={className? className :"inline-flex items-center cursor-pointer ml-2"}>
+      <label className={className? className :`inline-flex items-center cursor-pointer ml-2 ${className}`}>
         <input
           className="sr-only peer"
           type="checkbox"

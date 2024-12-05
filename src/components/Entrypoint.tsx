@@ -61,16 +61,16 @@ export const Entrypoint = () => {
   }
 
   return (
-    <div className="flex gap-x-16">
-      <div className="w-full max-w-xl">
+    <div className="flex w-xl gap-x-16 my-20">
+      <div className="w-80 h-full ">
         <h1 className="mb-1 font-medium text-lg">My Awesome List ({visibleCards.length})</h1>
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 ">
           {visibleCards.map((card) => (
             <Card key={card.id} id={card.id} title={card.title} description={card.description} delId={setDeletedId}/>
           ))}
         </div>
       </div>
-      <div className="w-full max-w-xl">
+      <div className="w-80 h-full max-w-xl">
         <div className="flex items-center justify-between">
           <h1 className="mb-1 font-medium text-lg text-center">Deleted Cards ({numOfDeletedCards})</h1>
           <Button

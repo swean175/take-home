@@ -82,7 +82,7 @@ function handleRevert(){
 if (deleted) {
   return (
     <div className="border border-black px-2 py-1.5 transiton-color bg-red-200">
-    <div className="flex justify-between mb-0.5">
+    <div className="flex justify-between mb-0.5 ">
       <h1 className="font-medium">{title}</h1>
     </div>
   </div>
@@ -105,14 +105,14 @@ if (deleted) {
   ) 
 } else
   return (
-    <div className="border border-black px-2 py-1.5 transition-colors hover:bg-gray-200">
+    <div className="border border-black px-2 py-1.5 transition-colors hover:bg-gray-200 transition-opacity delay-75">
       <div className="flex justify-between mb-0.5">
         <h1 className="font-medium">{title}</h1>
         <div className="flex">
-          <Button onClick={handleExpansion}>
+          <Button onClick={handleExpansion} className={"animate-pulse "}>
             {isExpanded ? <ChevronUpIcon />:  <ChevronDownIcon />}
           </Button>
-          <Button onClick={handleDelete}>
+          <Button onClick={handleDelete} >
             <XMarkIcon />
           </Button>
         </div>
